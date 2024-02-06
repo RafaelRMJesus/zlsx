@@ -7,6 +7,7 @@ import (
 
 func InitRoutes() {
 	r := gin.Default()
-	r.GET("/teste", controller.ShowStudents)
+	r.GET("/students", controller.ShowStudents)
+	r.GET("/hello/:name", controller.Hello)
 	r.Run()
 }
