@@ -11,8 +11,8 @@ func InitRoutes() {
 	r.POST("/students", controller.CreateStudent)
 	r.GET("/students/id/:id", controller.GetStudentById)
 	r.GET("/students/name/:name", controller.SearchStudentByName)
-	r.GET("students/deleted", controller.GetDeleted)
-	r.DELETE("students/:id", controller.DeleteStudent)
+	r.GET("/students/deleted", controller.GetDeleted)
+	r.DELETE("/students/:id", controller.DeleteStudent)
 	r.PATCH("/students/:id", controller.UpdateStudent)
 	r.Run()
 }

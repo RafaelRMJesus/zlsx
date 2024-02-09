@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/RafaelRMJesus/zlsx-api/db"
@@ -10,6 +11,6 @@ import (
 
 func GetDeleted(c *gin.Context) {
 	var students []models.Student
-	db.DB.Where("deleted_at IS NULL").Find(&students)
+	fmt.Println(db.DB.Unscoped().Not("deleted_at", nil).Find(&students))
 	c.JSON(http.StatusOK, students)
 }
