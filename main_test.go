@@ -12,7 +12,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var ID string
+
 func SetupTestRoutes() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	routes := gin.Default()
 	return routes
 }
@@ -34,6 +37,16 @@ func TestGetAllStudents(t *testing.T) {
 	r := SetupTestRoutes()
 	r.GET("/students", controller.ShowStudents)
 	req, _ := http.NewRequest("GET", "/students", nil)
+	res := httptest.NewRecorder()
+	r.ServeHTTP(res, req)
+	assert.Equal(t, http.StatusOK, res.Code)
+}
+
+func TestSearchStudentById(t *testing.T) {
+	db.DbConnect()
+	r := SetupTestRoutes()
+	r.GET("/students/id/:id", controller.GetStudentById)
+	req, _ := http.NewRequest("GET", "/students/id/6", nil)
 	res := httptest.NewRecorder()
 	r.ServeHTTP(res, req)
 	assert.Equal(t, http.StatusOK, res.Code)
